@@ -20,9 +20,10 @@ void* alloc(int n, size_t nBytes)
     return ptr;
 }
 
-void swap (int &a, int &b)
+template <typename T>
+void swap (T &a, T &b)
 {
-	int tmp = a;
+	T tmp = a;
 	a = b;
 	b = tmp;
 }

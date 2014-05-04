@@ -21,7 +21,8 @@ int max(int a, int b);
 void* alloc(int n, size_t nBytes);
 
 /* Faz um swap */
-void swap (int &a, int &b);
+template <typename T>
+void swap (T &a, T &b);
 
 vector<string> splitStr(string input, string delimiter);
 
