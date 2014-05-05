@@ -55,6 +55,7 @@ bool belongs(map<string, vector<string> > grammar, map<string, vector<string> > 
 {
 	const int N = word.size();
 	string temp;
+	vector<string> vTemp;
 	vector<vector<vector<string> > > m(N, vector<vector<string> >(N));
 	
 	for(int i = 0; i < N; i++)
@@ -71,12 +72,29 @@ bool belongs(map<string, vector<string> > grammar, map<string, vector<string> > 
 		i=0;  j=beginj;
 		while(j < N)
 		{
+			for(int k = j; k > -1; k--) if(m[i][k].size() != 0)
+			{
+				vTemp = m[i][k];
+				break;
+			}
 			
+			// In an amortized analysis, the following spends at most N+(V^2)*log V loops, where V is the number of variables in the grammar.
+			// There is an log factor just because I'm using a map.
+			for(int k = i; k < N; k++) if(m[k][j].size() != 0)
+			{
+				for(unsigned int ii = 0; ii < m[k][j].size(); ii++)
+					for(unsigned int jj = 0; jj < vTemp.size(); jj++)
+					{
+						temp = vTemp[jj]+m[k][j][ii];
+						if(rules.find(temp) != rules.end())	m[i][j].insert(m[i][j].end(), rules[temp].begin(), rules[temp].end());
+					}
+				break;
+			}
 			i++;  j++;
 		}
 		beginj++;
 	}
-	return true;
+	return (find(m[0].rbegin()->begin(), m[0].rbegin()->end(), "S") != m[0].rbegin()->end());
 }
 
 void printGrammar(map<string, vector<string> > grammar)
