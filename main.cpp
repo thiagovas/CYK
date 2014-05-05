@@ -71,7 +71,7 @@ bool belongs(map<string, vector<string> > grammar, map<string, vector<string> > 
 		i=0;  j=beginj;
 		while(j < N)
 		{
-			// A LÓGICA TA AQUI
+			
 			i++;  j++;
 		}
 		beginj++;
